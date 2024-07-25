@@ -1,0 +1,12 @@
+const express = require("express");
+const connectToDB = require("./db/conn");
+const cookieParser = require("cookie-parser");
+connectToDB();
+require("dotenv").config();
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
+const userRouter = require("./routes/user.routes");
+app.use("/api/v1", userRouter);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));
